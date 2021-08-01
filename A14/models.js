@@ -58,6 +58,7 @@ function buildGeometry() {
 	// Draws a Cylinder --- To do for the assignment
 	var vert3 = [[0.0, 1.5, 0.0, 0.0, 1.0, 0.0, 0.625, 0.875]];
 	k = 1;
+
 	// Top circle
 	for (i = 0; i < 36; i++) {
 		x = Math.sin(i/18.0*Math.PI);
@@ -65,8 +66,9 @@ function buildGeometry() {
 		vert3[k++] = [x, 1.5, z, 0.0, 1.0, 0.0, 0.625 + z * 0.125, 0.875 + x* 0.125]; 
 		//x e z invertiti nella UV mapping per avere la texture come nel pdf dell'assignment (ruotata di 180 gradi)
 	}
+
 	// Top Center
-	for (i = 0; i < 36; i++) {
+	for (i = 0; i <= 36; i++) {
 		x = Math.sin(i/18.0*Math.PI);
 		y = 1.5;
 		z = Math.cos(i/18.0*Math.PI);
@@ -75,16 +77,19 @@ function buildGeometry() {
 		// Srotolo la texture aumentando la posizione di un 36esimo della lunghezza totale
 		position = position + dparts;
 	}
+
 	// Bottom Center
 	position = 0;
-	for (i = 0; i < 36; i++) {
+	for (i = 0; i <= 36; i++) {
 		x = Math.sin(i/18.0*Math.PI);
+		console.log(x);
 		y = -1.5;
 		z = Math.cos(i/18.0*Math.PI);
 		norm = CilinderNorm(i);
 		vert3[k++] = [x, y, z, norm[0], norm[1], norm[2], 0.5 + position, 0.5];
 		position = position + dparts;
 	}
+
 	// Bottom Circle
 	for (i = 0; i < 36; i++) {
 		x = Math.sin(i/18.0*Math.PI);
@@ -101,21 +106,23 @@ function buildGeometry() {
 		ind3[k++] = i + 1;
 		ind3[k++] = (i + 1) % 36 + 1;
 	}
+
 	// Center rectangolar
-	for(i = 0; i < 36; i++) {
-		ind3[k++] = i + 73;
-		ind3[k++] = (i + 1) % 36 + 37;
+	for ( i = 0; i<36; i++) {
+		ind3[k++] = i + 37*2
+		ind3[k++] = (i + 1) + 37;
 		ind3[k++] = i + 37;
 
-		ind3[k++] = (i + 1) % 36 + 37;
-		ind3[k++] = i + 73;
-		ind3[k++] = (i + 1) % 36 + 73;
+		ind3[k++] = (i + 1) + 37;
+		ind3[k++] = i + 37*2;
+		ind3[k++] = (i + 1) + 37*2;
 	}
+
 	// Lower cicrle
 	for(i = 0; i < 36; i++) {
 		ind3[k++] = vert3.length -1;
-		ind3[k++] = (i + 1) % 36 + 109;
-		ind3[k++] = i + 109;
+		ind3[k++] = (i + 1) % 36 + 111;
+		ind3[k++] = i + 111;
 	}
 
 	var color3 = [0.0, 1.0, 1.0];
